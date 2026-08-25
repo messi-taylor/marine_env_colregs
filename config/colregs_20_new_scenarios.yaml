@@ -1,0 +1,931 @@
+scenario_01_starboard_headon_with_offset:
+  description: 'Rule 14 对遇(右舷偏移): TS位于(3, 28)向南偏西航向185°, speed 1.2 m/s.
+
+    OS向北 1.5 m/s. 横向偏移3m确保右舷对右舷通过.
+
+    CPA≈3m, TCPA≈11s. 测试: OS右转后两船左舷通过, 检验转向幅度.
+
+    '
+  colregs_rules:
+  - Rule 14
+  - Rule 8
+  - Rule 6
+  encounter_type: head_on
+  visibility: clear
+  difficulty: easy
+  environment:
+    wind_speed: 4.5
+    wind_direction: 220.0
+    significant_wave_height: 0.4
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 80.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts01
+    model: wamv
+    x: 3.0
+    y: 38.0
+    z: 0.0
+    yaw: 3.2288591161895095
+    speed: 1.2
+    waypoints: []
+  _recalc: true
+scenario_02_close_starboard_crossing_urgent:
+  description: 'Rule 15+16 紧迫右交叉: TS右舷(8, 10)向西1.0 m/s. OS向北1.5 m/s.
+
+    CPA=0, TCPA≈8s — 紧迫局面. 测试Rule 16"及早地采取大幅度行动".
+
+    OS须大幅右转从TS船尾通过.
+
+    '
+  colregs_rules:
+  - Rule 15
+  - Rule 16
+  - Rule 8
+  - Rule 6
+  encounter_type: crossing
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 5.0
+    wind_direction: 240.0
+    significant_wave_height: 0.45
+    peak_period: 3.8
+    current_speed: 0.28
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts02
+    model: wamv
+    x: 2.0
+    y: 35.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 2.0
+    waypoints: []
+  _recalc: true
+scenario_03_dual_starboard_crossing:
+  description: '双右舷交叉: TS1(8,8)向西2.0 m/s + TS2(11,11)向西2.0 m/s.
+
+    两船均在OS右舷, 均构成交叉相遇让路义务. CPA1=0/TCPA1≈4s, CPA2=0/TCPA2≈5.5s.
+
+    两船间距仅4.2m — 紧密编队. OS需右转从两船船尾通过. 测试: 多让路义务一致性 + 快速反应.
+
+    '
+  colregs_rules:
+  - Rule 15
+  - Rule 16
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 5.5
+    wind_direction: 230.0
+    significant_wave_height: 0.5
+    peak_period: 4.0
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts03a
+    model: wamv
+    x: 10.0
+    y: 15.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 1.5
+    waypoints: []
+  - name: ts03b
+    model: wamv
+    x: 14.0
+    y: 21.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 1.5
+    waypoints: []
+  _recalc: true
+scenario_04_opposite_crossing_both_sides:
+  description: '双侧交叉: TS1右舷(10,15)向西1.0 m/s (OS让路) + TS2左舷(-10, 15)向东1.0 m/s (OS直航).
+
+    CPA均为0, TCPA均为12s. 测试: OS须右转让TS1, 但不得危及TS2(直航船).
+
+    约束方向部分冲突 — 需最优折衷轨迹.
+
+    '
+  colregs_rules:
+  - Rule 15
+  - Rule 17
+  - Rule 16
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 5.0
+    wind_direction: 240.0
+    significant_wave_height: 0.5
+    peak_period: 4.0
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts04a
+    model: wamv
+    x: 18.0
+    y: 27.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 1.0
+    waypoints: []
+  - name: ts04b
+    model: wamv
+    x: -18.0
+    y: 27.0
+    z: 0.0
+    yaw: 1.5707963267948966
+    speed: 1.0
+    waypoints: []
+  _recalc: true
+scenario_05_fishing_vessel_rule18:
+  description: 'Rule 18 责任等级(渔船): TS(8, 14)为小型慢速船(模拟从事捕鱼), 向西0.5 m/s.
+
+    OS向北1.5 m/s. CPA≈2m, TCPA≈13s. Rule 18: 机动船应给从事捕鱼的船舶让路.
+
+    LLM需识别"渔船"身份并给予更宽CPA裕度.
+
+    '
+  colregs_rules:
+  - Rule 18
+  - Rule 15
+  - Rule 8
+  - Rule 6
+  encounter_type: crossing
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 6.0
+    wind_direction: 200.0
+    significant_wave_height: 0.5
+    peak_period: 4.2
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts05
+    model: wamv
+    x: 12.0
+    y: 18.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.5
+    waypoints: []
+  _recalc: true
+scenario_06_narrow_channel_headon_rule9:
+  description: 'Rule 9 狭水道对遇: TS(1, 22)向南0.8 m/s. OS向北1.2 m/s.
+
+    CPA≈1m, TCPA≈11s. 狭水道(模拟宽度20m)限制大幅转向.
+
+    测试: 在受限水域中的最小安全转向幅度.
+
+    '
+  colregs_rules:
+  - Rule 9
+  - Rule 14
+  - Rule 8
+  - Rule 6
+  encounter_type: head_on
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 3.0
+    wind_direction: 180.0
+    significant_wave_height: 0.3
+    peak_period: 3.0
+    current_speed: 0.5
+    current_direction: 0.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.2
+  target_ships:
+  - name: ts06
+    model: wamv
+    x: 1.0
+    y: 32.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 0.8
+    waypoints: []
+  _recalc: true
+scenario_07_narrow_channel_overtaking_rule9_13:
+  description: 'Rule 9+13 狭水道追越: TS前方12m同向慢速0.4 m/s. OS 1.5 m/s.
+
+    CPA=0, TCPA≈11s. 狭水道限制横向偏移.
+
+    测试: Rule 13(d) 追越船直到最后驶过让清 + Rule 9 尽量靠近水道外缘.
+
+    '
+  colregs_rules:
+  - Rule 9
+  - Rule 13
+  - Rule 8
+  - Rule 6
+  encounter_type: overtaking
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 2.5
+    wind_direction: 180.0
+    significant_wave_height: 0.25
+    peak_period: 2.8
+    current_speed: 0.4
+    current_direction: 0.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts07
+    model: wamv
+    x: 0.0
+    y: 18.0
+    z: 0.0
+    yaw: 0.0
+    speed: 0.4
+    waypoints: []
+  _recalc: true
+scenario_08_headon_with_fast_overtaker:
+  description: '对遇+后方追越复合: TS1(0, 26)向南1.0 m/s (对遇) + TS2(0, -8)向北2.0 m/s (OS被追越).
+
+    CPA1=0/TCPA1≈12s, CPA2=0/TCPA2≈16s.
+
+    OS对TS1让路右转, 但右转后可能挡住TS2快速追越船.
+
+    测试: 两方向约束冲突时的优先级划分.
+
+    '
+  colregs_rules:
+  - Rule 14
+  - Rule 13
+  - Rule 17
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 4.5
+    wind_direction: 240.0
+    significant_wave_height: 0.45
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts08a
+    model: wamv
+    x: 0.0
+    y: 39.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 1.0
+    waypoints: []
+  - name: ts08b
+    model: wamv
+    x: 0.0
+    y: -15.0
+    z: 0.0
+    yaw: 0.0
+    speed: 2.5
+    waypoints: []
+  _recalc: true
+scenario_09_restricted_vis_crossing_rule19:
+  description: 'Rule 19 雾航交叉: TS(9, 13)向西0.7 m/s. OS向北1.0 m/s.
+
+    CPA≈1m, TCPA≈13s. visibility_range=180m. 仅雷达感知.
+
+    Rule 19(d): 禁止向左转向; Rule 19(e): 必要时减速或停住.
+
+    '
+  colregs_rules:
+  - Rule 19
+  - Rule 8
+  - Rule 6
+  encounter_type: crossing
+  visibility: restricted
+  difficulty: medium
+  environment:
+    wind_speed: 3.5
+    wind_direction: 280.0
+    significant_wave_height: 0.9
+    peak_period: 5.2
+    current_speed: 0.4
+    current_direction: 120.0
+    visibility_range: 180.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.0
+  target_ships:
+  - name: ts09
+    model: wamv
+    x: 16.0
+    y: 16.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.7
+    waypoints: []
+  _recalc: true
+scenario_10_nuc_vessel_rule18:
+  description: 'Rule 18 失去控制船舶(NUC): TS(5, 16)模拟NUC(速度≈0, 无定向漂移).
+
+    OS向北1.5 m/s. CPA≈5m, TCPA≈11s.
+
+    Rule 18(a): 机动船应给失去控制的船舶让路.
+
+    LLM需识别NUC状态并主动远离.
+
+    '
+  colregs_rules:
+  - Rule 18
+  - Rule 8
+  - Rule 6
+  encounter_type: crossing
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 7.0
+    wind_direction: 250.0
+    significant_wave_height: 0.7
+    peak_period: 4.5
+    current_speed: 0.5
+    current_direction: 110.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts10
+    model: wamv
+    x: 6.0
+    y: 24.0
+    z: 0.0
+    yaw: 3.490658503988659
+    speed: 0.2
+    waypoints: []
+  _recalc: true
+scenario_11_constrained_by_draft_rule18:
+  description: 'Rule 18 限于吃水船舶: TS(0, 24)向南0.6 m/s (模拟深吃水船限于航道).
+
+    OS向北1.5 m/s. CPA≈0, TCPA≈11s.
+
+    Rule 18(d): 机动船应给限于吃水的船舶让路(在狭水道/航道中).
+
+    测试: 识别CBD状态并给予最大通行空间.
+
+    '
+  colregs_rules:
+  - Rule 18
+  - Rule 9
+  - Rule 8
+  - Rule 6
+  encounter_type: head_on
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 4.0
+    wind_direction: 200.0
+    significant_wave_height: 0.4
+    peak_period: 3.5
+    current_speed: 0.5
+    current_direction: 0.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts11
+    model: wamv
+    x: 0.0
+    y: 38.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 0.6
+    waypoints: []
+  _recalc: true
+scenario_12_acute_angle_crossing_borderline:
+  description: '小角度交叉(航向差~20°): TS(4, 24)航向200°(南偏西20°). OS向北1.5 m/s.
+
+    CPA≈1.5m, TCPA≈11s. 介于Rule 14(对遇)与Rule 15(交叉)的边界.
+
+    航向差<22.5°时可能被判定为对遇. 测试LLM语义判断的准确性.
+
+    '
+  colregs_rules:
+  - Rule 14
+  - Rule 15
+  - Rule 17
+  - Rule 8
+  encounter_type: crossing
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 5.0
+    wind_direction: 210.0
+    significant_wave_height: 0.5
+    peak_period: 4.0
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts12
+    model: wamv
+    x: 5.0
+    y: 32.0
+    z: 0.0
+    yaw: 3.490658503988659
+    speed: 1.0
+    waypoints: []
+  _recalc: true
+scenario_13_zigzag_dynamic_evasion:
+  description: '动态Z字规避: TS初始(-200,168)向东3.5m/s, 沿Z字形waypoints航行.
+
+    路径: (-200,168)→(-30,206)→(40,164)→(130,170).
+
+    TS在WP1-WP2间穿越OS航线(x=0), 预计相遇≈63s, CPA≈0m.
+
+    测试: 对机动目标的轨迹预测与预判规避.'
+  colregs_rules:
+  - Rule 15
+  - Rule 17
+  - Rule 2
+  - Rule 8
+  - Rule 6
+  encounter_type: dynamic
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 4.0
+    wind_direction: 220.0
+    significant_wave_height: 0.4
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts13
+    model: wamv
+    x: -40.0
+    y: 30.0
+    z: 0.0
+    yaw: 1.5708
+    speed: 2.0
+    waypoints:
+    - - 40.0
+      - 30.0
+      - 2.0
+    - - 40.0
+      - 60.0
+      - 2.0
+    - - -40.0
+      - 60.0
+      - 2.0
+  _recalc: true
+scenario_14_formation_headon_two_columns:
+  description: '双列编队对遇: TS1(2, 26)向南1.0 m/s + TS2(-2, 24)向南1.0 m/s.
+
+    两船横向间距4m, 纵向前后2m. CPA均≈0, TCPA均≈12s.
+
+    测试: OS右转后是否能从编队间隙安全通过.
+
+    '
+  colregs_rules:
+  - Rule 14
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 5.5
+    wind_direction: 240.0
+    significant_wave_height: 0.5
+    peak_period: 4.0
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts14a
+    model: wamv
+    x: 4.0
+    y: 38.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 1.0
+    waypoints: []
+  - name: ts14b
+    model: wamv
+    x: -4.0
+    y: 36.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 1.0
+    waypoints: []
+  _recalc: true
+scenario_15_high_speed_overtaking_rule13:
+  description: 'Rule 13 高速追越: TS前方18m同向慢速0.3 m/s. OS 2.0 m/s (高速).
+
+    CPA=0, TCPA≈11s. OS为高速追越船, 相对速度1.7 m/s.
+
+    测试: 高速追越的横向安全距离与Rule 13(d)全程让路义务.
+
+    '
+  colregs_rules:
+  - Rule 13
+  - Rule 8
+  - Rule 6
+  encounter_type: overtaking
+  visibility: clear
+  difficulty: medium
+  environment:
+    wind_speed: 3.0
+    wind_direction: 180.0
+    significant_wave_height: 0.3
+    peak_period: 3.0
+    current_speed: 0.15
+    current_direction: 0.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 2.0
+  target_ships:
+  - name: ts15
+    model: wamv
+    x: 1.0
+    y: 22.0
+    z: 0.0
+    yaw: 0.0
+    speed: 0.3
+    waypoints: []
+  _recalc: true
+scenario_16_restricted_vis_four_ships_rule19:
+  description: 'Rule 19 雾航四船全方向: TS1对遇(0,22)/TS2右交叉(8,12)/TS3左交叉(-8,12)/TS4前方慢船(0,10).
+
+    visibility_range=120m, 仅雷达. TCPA均≈12s.
+
+    Rule 19(d)禁止向左 + 19(e)必要时停住. 最严格雾航测试.
+
+    '
+  colregs_rules:
+  - Rule 19
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: restricted
+  difficulty: extreme
+  environment:
+    wind_speed: 3.0
+    wind_direction: 300.0
+    significant_wave_height: 0.8
+    peak_period: 5.5
+    current_speed: 0.4
+    current_direction: 130.0
+    visibility_range: 120.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.0
+  target_ships:
+  - name: ts16a
+    model: wamv
+    x: 0.0
+    y: 28.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 1.2
+    waypoints: []
+  - name: ts16b
+    model: wamv
+    x: 14.0
+    y: 14.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.8
+    waypoints: []
+  - name: ts16c
+    model: wamv
+    x: -14.0
+    y: 14.0
+    z: 0.0
+    yaw: 1.5707963267948966
+    speed: 0.8
+    waypoints: []
+  - name: ts16d
+    model: wamv
+    x: 0.0
+    y: 12.0
+    z: 0.0
+    yaw: 0.0
+    speed: 0.3
+    waypoints: []
+  _recalc: true
+  nmpc_tuning:
+    cpa_floor: 8.0
+    starboard_bias_deg: 15
+scenario_17_crossing_with_sudden_acceleration:
+  description: '突然加速转向: TS初始(-160,180)向东3.5m/s, 沿waypoints航行.
+
+    路径: (-160,180)→(-60,210)→(30,130)→(90,165).
+
+    TS在WP1-WP2间转向穿越OS航线(x=0), 预计相遇≈53s, CPA≈2m.
+
+    测试: Rule 17(a)(ii) OS独自采取避让行动的最晚触发点.'
+  colregs_rules:
+  - Rule 15
+  - Rule 17
+  - Rule 2
+  - Rule 8
+  - Rule 6
+  encounter_type: dynamic
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 4.5
+    wind_direction: 240.0
+    significant_wave_height: 0.45
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts17
+    model: wamv
+    x: -30.0
+    y: 35.0
+    z: 0.0
+    yaw: 1.5708
+    speed: 1.5
+    waypoints:
+    - - 30.0
+      - 35.0
+      - 3.0
+    - - 30.0
+      - 70.0
+      - 3.0
+  _recalc: true
+scenario_18_triple_crossing_staggered:
+  description: '三船交错交叉: TS1右舷(8,12)向西0.9 m/s + TS2右舷(15,22)向西1.1 m/s
+
+    + TS3左舷(-6, 10)向东0.7 m/s.
+
+    CPA1≈0/TCPA1≈11s, CPA2≈0/TCPA2≈14s, CPA3≈0/TCPA3≈10s.
+
+    OS对TS1/TS2让路(右转), 对TS3直航(保向). 相互矛盾的多约束.
+
+    '
+  colregs_rules:
+  - Rule 15
+  - Rule 16
+  - Rule 17
+  - Rule 18
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: extreme
+  environment:
+    wind_speed: 5.5
+    wind_direction: 240.0
+    significant_wave_height: 0.5
+    peak_period: 4.0
+    current_speed: 0.3
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts18a
+    model: wamv
+    x: 14.0
+    y: 14.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.9
+    waypoints: []
+  - name: ts18b
+    model: wamv
+    x: 18.0
+    y: 24.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 1.1
+    waypoints: []
+  - name: ts18c
+    model: wamv
+    x: -12.0
+    y: 18.0
+    z: 0.0
+    yaw: 1.5707963267948966
+    speed: 0.7
+    waypoints: []
+  _recalc: true
+scenario_19_night_encounter_rules20_23:
+  description: 'Rules 20-23 夜航灯光: TS1对遇(0,24)向南0.9 m/s + TS2右舷(9,14)向西0.8 m/s.
+
+    CPA均≈0, TCPA均≈12s. 模拟夜间能见度良好但仅依赖灯光识别.
+
+    测试: LLM处理"看到他船桅灯/舷灯"语义 → 判定会遇类型.
+
+    '
+  colregs_rules:
+  - Rule 14
+  - Rule 15
+  - Rule 20
+  - Rule 21
+  - Rule 22
+  - Rule 23
+  - Rule 8
+  - Rule 6
+  encounter_type: composite
+  visibility: clear
+  difficulty: hard
+  environment:
+    wind_speed: 4.0
+    wind_direction: 200.0
+    significant_wave_height: 0.4
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts19a
+    model: wamv
+    x: 0.0
+    y: 36.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 0.9
+    waypoints: []
+  - name: ts19b
+    model: wamv
+    x: 14.0
+    y: 20.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.8
+    waypoints: []
+  _recalc: true
+scenario_20_ultimate_six_ship_convergence:
+  description: '6船终极收敛: TS1对遇(0,24/S) + TS2右交叉(9,15/W) + TS3左交叉(-9,15/E)
+
+    + TS4前方慢船(0,9/N) + TS5后方快船(0,-8/N) + TS6右舷渔船(5,11/W, 极慢0.3 m/s).
+
+    CPA均<1.5m, TCPA均8-14s. 包含全部四种会遇类型 + Rule 18渔船优先.
+
+    论文终极全能压力测试 — 6船同时构成碰撞危险.
+
+    '
+  colregs_rules:
+  - Rule 13
+  - Rule 14
+  - Rule 15
+  - Rule 16
+  - Rule 17
+  - Rule 18
+  - Rule 8
+  - Rule 6
+  - Rule 2
+  encounter_type: composite
+  visibility: clear
+  difficulty: extreme
+  environment:
+    wind_speed: 6.0
+    wind_direction: 240.0
+    significant_wave_height: 0.6
+    peak_period: 4.5
+    current_speed: 0.35
+    current_direction: 90.0
+  own_ship:
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+    speed: 1.5
+  target_ships:
+  - name: ts20a
+    model: wamv
+    x: 1.0
+    y: 30.0
+    z: 0.0
+    yaw: 3.141592653589793
+    speed: 1.2
+    waypoints: []
+  - name: ts20b
+    model: wamv
+    x: 12.0
+    y: 18.0
+    z: 0.0
+    yaw: 4.71238898038469
+    speed: 0.9
+    waypoints: []
+  - name: ts20c
+    model: wamv
+    x: -12.0
+    y: 18.0
+    z: 0.0
+    yaw: 1.5707963267948966
+    speed: 0.9
+    waypoints: []
+  - name: ts20d
+    model: wamv
+    x: 0.0
+    y: 10.0
+    z: 0.0
+    yaw: 0.0
+    speed: 0.3
+    waypoints: []
+  - name: ts20e
+    model: wamv
+    x: -2.0
+    y: -12.0
+    z: 0.0
+    yaw: 0.0
+    speed: 2.5
+    waypoints: []
+  - name: ts20f
+    model: wamv
+    x: 16.0
+    y: 24.0
+    z: 0.0
+    yaw: 4.363323129985824
+    speed: 0.7
+    waypoints: []
+  _recalc: true
+  nmpc_tuning:
+    cpa_floor: 4.0
+    starboard_bias_deg: 10
+    gauss_weight: 3000000
+    target_overrides:
+      ts20d:
+        pass_astern: false
+        cpa_floor: 2.0
+      ts20e:
+        cpa_floor: 2.0
+      ts20f:
+        cpa_floor: 3.0

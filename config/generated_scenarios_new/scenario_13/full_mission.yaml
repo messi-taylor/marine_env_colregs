@@ -1,0 +1,100 @@
+# Full mission environment parameters — 场景自动生成
+# ── 本船 (Own Ship) 自动舵参数 ──
+own_ship_autopilot:
+  ros__parameters:
+    target_speed: 1.5
+    target_heading: 1.5707963267948966
+    enable_heading_hold: true
+sea_clutter:
+  ros__parameters:
+    input_topic: "/wamv/sensors/lidars/xband_radar_sensor/points"
+    output_topic: "/wamv/sensors/radars/xband/points_cluttered"
+    clutter_shape: 1.5
+    clutter_scale: 0.03
+    false_alarm_rate: 0.02
+    false_alarm_range: 500.0
+    enable_clutter: true
+    enable_false_alarms: true
+
+ais_publisher:
+  ros__parameters:
+    publish_rate: 0.1
+    packet_loss_rate: 0.05
+    max_delay_ms: 500
+    target_ships: ["ts13"]
+
+environment_forces:
+  ros__parameters:
+    wind_speed: 4.0
+    wind_direction: 220.0
+    gust_amplitude: 3.0
+    significant_wave_height: 0.4
+    peak_period: 3.8
+    current_speed: 0.25
+    current_direction: 90.0
+    world_name: "sydney_regatta"
+    model_name: "wamv"
+    publish_rate: 10.0
+
+eskf_estimator:
+  ros__parameters:
+    imu_topic: "/wamv/sensors/imu/imu/data"
+    gps_topic: "/wamv/sensors/gps/gps/fix"
+    odom_topic: "/wamv/state/estimated"
+    world_frame: "map"
+    body_frame: "wamv/eskf_base_link"
+    gps_origin_lat: -33.724223
+    gps_origin_lon: 150.679736
+    gps_origin_alt: 0.0
+    init_from_gps: false
+    gt_odom_topic: "/model/wamv/odometry"
+    enable_vo: true
+    vo_topics_json: '["/wamv/sensors/cameras/front_left/vo","/wamv/sensors/cameras/front_right/vo","/wamv/sensors/cameras/middle_right/vo"]'
+    vo_noise_json: '[[1.5,3.0,0.05],[1.5,3.0,0.05],[2.0,4.0,0.05]]'
+    vo_rate: 15.0
+    sigma_accel: 0.1
+    sigma_gyro: 0.01
+    sigma_accel_bias: 0.001
+    sigma_gyro_bias: 0.0001
+    r_gps_pos: 2.0
+    r_gps_cog: 0.15
+    cog_min_speed: 0.5
+    p_init_pos: 10.0
+    p_init_vel: 1.0
+    p_init_att: 0.5
+    p_init_ab: 0.1
+    p_init_wb: 0.05
+
+jpda_tracker:
+  ros__parameters:
+    radar_topic: "/wamv/sensors/radars/xband/points_cluttered"
+    radar_x_body: 0.85
+    radar_y_body: 0.0
+    enable_mmwave: true
+    mmwave_topic: "/wamv/sensors/lidars/radar_wamv_sensor/points"
+    mmwave_x_body: 0.3
+    mmwave_y_body: 0.0
+    ais_topic: "/wamv/sensors/ais/nmea"
+    marker_topic: "/wamv/tracking/targets"
+    world_frame: "map"
+    radar_frame: "wamv/xband_radar_sensor"
+    cluster_eps: 15.0
+    cluster_min_samples: 3
+    gate_threshold: 4.0
+    max_coast: 5
+    min_hits_confirm: 3
+    init_cov_pos: 25.0
+    init_cov_vel: 4.0
+    q_pos: 0.1
+    q_vel: 0.5
+    r_meas: 9.0
+    ais_assoc_dist: 50.0
+
+nmpc_controller:
+  ros__parameters:
+    target_names: ["ts13"]
+    rci_disturbance_bound: 1.0
+    odom_topic: "/wamv/state/estimated"
+    control_rate: 5.0
+    prediction_horizon: 20
+    time_step: 0.5

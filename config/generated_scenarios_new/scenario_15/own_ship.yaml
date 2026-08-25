@@ -1,0 +1,17 @@
+# Own Ship (本船) 初始状态 — 场景自动生成
+# 由 VRX competition.launch.py 读取, 设置 OS 初始位姿
+- model_name: wamv
+  model_type: wam-v
+  position:
+    xyz:
+    - 0.0
+    - 0.0
+    - 0.0
+    rpy:
+    - 0.0
+    - 0.0
+    - 1.5707963267948966
+
+# autopilot 参数 (由 full_mission.yaml 读取)
+# target_speed: 2.0
+# target_heading: 0.0 (罗经) / 1.5708 (ENU)

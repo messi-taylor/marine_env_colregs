@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>marine_env</name>
+  <version>1.0.0</version>
+  <description>Marine environment simulation: sea clutter, AIS publisher, JONSWAP waves, wind gusts, ocean current, target ship spawner</description>
+  <maintainer email="user@example.com">User</maintainer>
+  <license>Apache 2.0</license>
+  <depend>rclpy</depend>
+  <depend>ament_index_python</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>ros_gz_interfaces</depend>
+  <depend>tf2_ros</depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

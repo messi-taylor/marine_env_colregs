@@ -1,0 +1,7 @@
+# Target ship spawner configuration — 场景自动生成
+target_ship_spawner:
+  ros__parameters:
+    ships_json: '[{"name": "ts18a", "model": "wamv", "x": 14.0, "y": 14.0, "z": 0.0, "yaw": -3.141592653589793, "speed": 0.9, "waypoints": []}, {"name": "ts18b", "model": "wamv", "x": 18.0, "y": 24.0, "z": 0.0, "yaw": -3.141592653589793, "speed": 1.1, "waypoints": []}, {"name": "ts18c", "model": "wamv", "x": -12.0, "y": 18.0, "z": 0.0, "yaw": 0.0, "speed": 0.7, "waypoints": []}]'
+    world_name: "sydney_regatta"
+    pose_rate: 5.0
+    control_rate: 2.0

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# ROS2 / colcon build
+build/
+install/
+log/
+
+# Experiment outputs (large; keep out of the repo)
+ablation_output/
+evaluation_output/
+ablation_logs/
+vo_baseline_output/
+multimodel_output/
+
+# OS
+.DS_Store
+Thumbs.db
